@@ -10,7 +10,7 @@ import { ADDRESS, EMAIL, FACEBOOK, GEO, INSTAGRAM, MAP, PHONES, SITE_URL } from 
 import { getDictionary, hasLocale } from "./dictionaries";
 
 const VIDEOS = [
-  // youtubeId: paste the unlisted video's ID here to switch from the local MP4 to YouTube
+  // file: poster image in public/video/<file>.jpg; youtubeId: the unlisted YouTube video
   { file: "amandine-bryan", names: "Amandine & Bryan", youtubeId: "LfEeKR8dseU" },
   { file: "daniela-emanuel", names: "Daniela & Emanuel", youtubeId: "Rq2E_eQ2LN0" },
 ];
@@ -23,6 +23,11 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
   if (!hasLocale(lang)) notFound();
   const t = getDictionary(lang);
   const other = lang === "pt" ? "en" : "pt";
+  const sections = [
+    ["#galeria", t.nav.gallery],
+    ["#servicos", t.nav.services],
+    ["#equipa", t.nav.team],
+  ];
 
   const team = [
     { name: "Ricardo Miranda", role: t.team.lead, src: "/team/ricardo.jpg" },
@@ -49,21 +54,27 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
           }).replace(/</g, "\\u003c"),
         }}
       />
-      <header className="sticky top-0 z-40 border-b border-line bg-canvas/80 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-line bg-canvas/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link href={`/${lang}`} aria-label="FotoMiranda">
             <Image src="/logo.png" alt="FotoMiranda" width={120} height={43} className="mix-blend-multiply" priority />
           </Link>
           <nav className="flex items-center gap-6 text-sm">
-            <a href="#galeria" className="hidden text-muted hover:text-ink md:block">{t.nav.gallery}</a>
-            <a href="#servicos" className="hidden text-muted hover:text-ink md:block">{t.nav.services}</a>
-            <a href="#equipa" className="hidden text-muted hover:text-ink md:block">{t.nav.team}</a>
+            {sections.map(([href, label]) => (
+              <a key={href} href={href} className="hidden text-muted hover:text-ink md:block">{label}</a>
+            ))}
             <Link href={`/${other}`} hrefLang={other} scroll={false} className="font-mono text-xs uppercase text-muted hover:text-ink">
               {other}
             </Link>
             <a href="#contacto" className="btn !py-2">{t.nav.cta}</a>
           </nav>
         </div>
+        {/* phones: the section links in a row that scrolls sideways */}
+        <nav className="flex gap-6 overflow-x-auto border-t border-line px-6 py-2.5 text-sm text-muted md:hidden">
+          {sections.map(([href, label]) => (
+            <a key={href} href={href} className="shrink-0 hover:text-ink">{label}</a>
+          ))}
+        </nav>
       </header>
 
       <main>
