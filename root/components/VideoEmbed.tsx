@@ -3,25 +3,16 @@
 import { useState } from "react";
 
 // Shows the local poster until the visitor presses play, so YouTube loads nothing before then.
-// Without a youtubeId it falls back to the local MP4.
 export default function VideoEmbed({
   file,
   youtubeId,
   label,
 }: {
   file: string;
-  youtubeId?: string;
+  youtubeId: string;
   label: string;
 }) {
   const [playing, setPlaying] = useState(false);
-
-  if (!youtubeId) {
-    return (
-      <video controls preload="none" poster={`/video/${file}.jpg`} aria-label={label} className="aspect-video w-full bg-ink object-cover">
-        <source src={`/video/${file}.mp4`} type="video/mp4" />
-      </video>
-    );
-  }
 
   return (
     <div className="relative aspect-video w-full bg-ink">

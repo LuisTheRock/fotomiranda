@@ -33,12 +33,11 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
 
   return (
     <>
-      <div className="flex flex-wrap gap-2" role="tablist">
+      <div className="flex flex-wrap gap-2">
         {filters.map(([key, label]) => (
           <button
             key={key}
-            role="tab"
-            aria-selected={filter === key}
+            aria-pressed={filter === key}
             onClick={() => {
               setFilter(key);
               setVisible(PAGE);
@@ -88,6 +87,7 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
 
       <dialog
         ref={dialog}
+        aria-label={current?.alt}
         onClose={() => setOpen(null)}
         onKeyDown={(e) => {
           if (e.key === "ArrowRight") step(1);
@@ -120,7 +120,7 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
               className="relative min-h-0 flex-1 px-6 sm:px-20"
               onClick={(e) => e.target === e.currentTarget && dialog.current?.close()}
             >
-              <button onClick={() => step(-1)} aria-label={t.prev} className="lb-btn absolute left-4 top-1/2 -translate-y-1/2 sm:left-6">
+              <button onClick={() => step(-1)} aria-label={t.prev} className="lb-btn !hidden absolute left-6 top-1/2 -translate-y-1/2 sm:!grid">
                 <Arrow />
               </button>
               <div className="lb-stage" onClick={(e) => e.target === e.currentTarget && dialog.current?.close()}>
@@ -128,18 +128,20 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
                   <Image key={current.src} src={current.src} alt={current.alt} fill sizes="100vw" quality={90} placeholder="blur" blurDataURL={current.blur} className="lb-photo" />
                 </div>
               </div>
-              <button onClick={() => step(1)} aria-label={t.next} className="lb-btn absolute right-4 top-1/2 -translate-y-1/2 sm:right-6">
+              <button onClick={() => step(1)} aria-label={t.next} className="lb-btn !hidden absolute right-6 top-1/2 -translate-y-1/2 sm:!grid">
                 <Arrow flip />
               </button>
             </div>
 
-            <div className="flex items-center justify-between px-6 py-5 text-xs text-muted">
+            <div className="flex items-center justify-between gap-4 px-6 py-5 text-xs text-muted sm:justify-center">
+              {/* phones: arrows live here, within thumb reach */}
+              <button onClick={() => step(-1)} aria-label={t.prev} className="lb-btn sm:!hidden">
+                <Arrow />
+              </button>
               <span className="tag">{t[current.category]}</span>
-              <span className="hidden items-center gap-2 sm:flex">
-                <kbd className="kbd">←</kbd>
-                <kbd className="kbd">→</kbd>
-                <kbd className="kbd">Esc</kbd>
-              </span>
+              <button onClick={() => step(1)} aria-label={t.next} className="lb-btn sm:!hidden">
+                <Arrow flip />
+              </button>
             </div>
           </div>
         )}
