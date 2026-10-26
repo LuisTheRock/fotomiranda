@@ -39,3 +39,6 @@ next-env.d.ts
 .claude/
 .code-review-graph/
 .idea/
+
+# large local videos: host on YouTube instead
+/root/public/video/*.mp4
