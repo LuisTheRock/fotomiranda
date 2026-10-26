@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  images: { qualities: [75, 90] },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
