@@ -11,8 +11,8 @@ import { getDictionary, hasLocale } from "./dictionaries";
 
 const VIDEOS = [
   // youtubeId: paste the unlisted video's ID here to switch from the local MP4 to YouTube
-  { file: "amandine-bryan", names: "Amandine & Bryan", youtubeId: undefined as string | undefined },
-  { file: "daniela-emanuel", names: "Daniela & Emanuel", youtubeId: undefined as string | undefined },
+  { file: "amandine-bryan", names: "Amandine & Bryan", youtubeId: "LfEeKR8dseU" },
+  { file: "daniela-emanuel", names: "Daniela & Emanuel", youtubeId: "Rq2E_eQ2LN0" },
 ];
 
 const section = "mx-auto w-full max-w-6xl px-6 py-24 md:py-32";
