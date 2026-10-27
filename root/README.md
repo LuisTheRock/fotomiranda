@@ -77,16 +77,17 @@ Send a test message through the form. If it says "Não foi possível enviar", lo
 | Colours, fonts, motion | `app/globals.css` and the font setup in `app/[lang]/layout.tsx` |
 | Contact form email | `app/api/contact/route.ts` |
 
-## Add photos to the gallery
+## Gallery and admin (Supabase)
 
-Put the files in `public/gallery/` named `<category>-<number>.jpg`, for example `casamento-30.jpg`. The categories are `casamento`, `casal` and `bebes`. The gallery sorts by category (weddings first), then by name, and shows 12 photos before "Mostrar mais". The blur preview is generated automatically at build.
+Photos are managed at `/admin` (Portuguese only), not in the repo.
 
-Use photos at least 2000 px on the long edge. Smaller ones look soft in the viewer.
+One-time setup:
+1. Create a free project at supabase.com. Under Authentication > Sign In / Providers, turn **off** "Allow new users to sign up".
+2. Run `supabase/migrations/001_gallery.sql` in the SQL editor.
+3. Authentication > Users > Add user: the admin's email and password.
+4. Put the project URL and anon key in `.env.local` (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`) and in the hosting env vars, then rebuild.
 
-**A new category** (for example `batizado`): the build stops with a message naming the file until you do all of these:
-1. Add it to `ORDER` in `lib/photos.ts` and to `Category` in `components/Gallery.tsx`.
-2. Add its label and alt text under `gallery` in both languages in `dictionaries.ts`.
-3. Add a button to the `filters` list in `components/Gallery.tsx`.
+In `/admin` you can upload (resized to 1600 px in the browser), drag to reorder, change category and delete. To add a category, follow the comment in `lib/photos.ts` and the check constraint in the SQL.
 
 ## Videos
 

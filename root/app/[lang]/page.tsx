@@ -56,9 +56,9 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
       />
       <header className="sticky top-0 z-40 border-b border-line bg-canvas/95 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <Link href={`/${lang}`} aria-label="FotoMiranda">
+          <a href="#" aria-label="FotoMiranda">
             <Image src="/logo.png" alt="FotoMiranda" width={120} height={43} className="mix-blend-multiply" priority />
-          </Link>
+          </a>
           <nav className="flex items-center gap-6 text-sm">
             {sections.map(([href, label]) => (
               <a key={href} href={href} className="hidden text-muted hover:text-ink md:block">{label}</a>
@@ -69,10 +69,10 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
             <a href="#contacto" className="btn !py-2">{t.nav.cta}</a>
           </nav>
         </div>
-        {/* phones: the section links in a row that scrolls sideways */}
-        <nav className="flex gap-6 overflow-x-auto border-t border-line px-6 py-2.5 text-sm text-muted md:hidden">
+        {/* phones: section links as equal columns split by hairlines, no sideways scroll */}
+        <nav className="grid border-t border-line text-center text-sm text-muted md:hidden" style={{ gridTemplateColumns: `repeat(${sections.length}, 1fr)` }}>
           {sections.map(([href, label]) => (
-            <a key={href} href={href} className="shrink-0 hover:text-ink">{label}</a>
+            <a key={href} href={href} className="border-l border-line py-3 transition-colors first:border-l-0 hover:bg-bone hover:text-ink active:bg-bone">{label}</a>
           ))}
         </nav>
       </header>
@@ -137,7 +137,7 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
 
         {/* About */}
         <section className={section}>
-          <div className="grid gap-12 md:grid-cols-5">
+          <div className="grid gap-12 md:grid-cols-5 md:items-center">
             <Reveal className="md:col-span-2">
               <h2 className="serif text-4xl md:text-5xl">{t.about.title}</h2>
             </Reveal>
