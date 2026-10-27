@@ -4,7 +4,7 @@ const pt = {
     description:
       "Fotografia e vídeo de casamentos, batizados, comunhões e eventos em Santa Maria da Feira. Imagens em alta resolução e álbum digital personalizado.",
   },
-  nav: { gallery: "Galeria", services: "Serviços", team: "Equipa", contact: "Contacto", cta: "Vamos lá" },
+  nav: { gallery: "Galeria", services: "Serviços", team: "Equipa", contact: "Contacto", cta: "Contacte-nos" },
   hero: {
     eyebrow: "Casamentos, batizados e eventos",
     title: "Capture os seus momentos",
@@ -83,7 +83,7 @@ const en: typeof pt = {
     description:
       "Photography and video for weddings, baptisms, communions and events in Santa Maria da Feira, Portugal. High-resolution images and a custom digital album.",
   },
-  nav: { gallery: "Gallery", services: "Services", team: "Team", contact: "Contact", cta: "Let's talk" },
+  nav: { gallery: "Gallery", services: "Services", team: "Team", contact: "Contact", cta: "Contact us" },
   hero: {
     eyebrow: "Weddings, baptisms and events",
     title: "Capture your moments",

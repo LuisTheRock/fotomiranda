@@ -15,7 +15,8 @@ Website for a wedding, baptism and event photographer in Santa Maria da Feira (P
 - `app/[lang]/` — the only page, in `pt` (default) and `en`. All copy is in `app/[lang]/dictionaries.ts`; `en` is typed against `pt`, so a missing key fails the type-check.
 - `app/api/contact/route.ts` — contact form: validation, Turnstile check, then Resend.
 - `components/` — `Gallery` (filters, paging, `<dialog>` lightbox), `VideoEmbed` (click-to-load YouTube), `ContactForm`, `Reveal` (scroll fade-in).
-- `lib/site.ts` — phones, email, address, social links, site URL. `lib/photos.ts` — reads `public/gallery/` and builds blur previews.
+- `lib/site.ts` — phones, email, address, social links, site URL. `lib/photos.ts` — reads the gallery from Supabase (cached, tag `photos`).
+- `app/admin/` — login + gallery manager (upload, drag to reorder, category, delete). Supabase Auth, sign-ups off; every action calls `requireUser()`.
 - `proxy.ts` — redirects `/` to `/pt` or `/en` by browser language (Next 16 name for middleware).
 - Env vars and how to add photos or videos: see `README.md`.
 
@@ -35,7 +36,7 @@ The look follows the `minimalist-ui` skill. Load it before changing any UI.
 
 - `cacheComponents` is on: file or network reads during prerender must sit inside a `"use cache"` function (see `lib/photos.ts`) or the build fails.
 - `NEXT_PUBLIC_*` variables are baked in at build time. After changing one, rebuild.
-- Gallery photos are named `<category>-<n>.jpg`. An unknown category prefix stops the build on purpose.
+- Photos live in Supabase (table `photos` + public bucket `gallery`); schema in `supabase/migrations/`.
 - Gallery photos are only 800 px wide, so the lightbox caps their size. Do not stretch them; ask the client for larger originals instead.
 - Videos live on YouTube (unlisted). Never commit MP4s; `../.gitignore` blocks `public/video/*.mp4`.
 - Never `rm -rf .next` while `next dev` is running (the user usually has it on port 3000): the open browser tab keeps stale, half-updated styles and the page looks broken. Check for a running dev server first (`lsof -i :3000`); to test a production build, use a different folder or ask the user to stop dev.
