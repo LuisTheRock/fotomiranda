@@ -46,7 +46,10 @@ export async function deletePhotos(ids: string[]): Promise<Result> {
   const { data } = await supabase.from("photos").select("path").in("id", ids);
   const { error } = await supabase.from("photos").delete().in("id", ids);
   if (error) return { error: "Não foi possível apagar." };
-  if (data?.length) await supabase.storage.from("gallery").remove(data.map((p) => p.path));
+  if (data?.length) {
+    const { error: fileError } = await supabase.storage.from("gallery").remove(data.map((p) => p.path));
+    if (fileError) console.error("admin: rows deleted but files left in storage:", fileError.message); // orphans cost space, never break the page
+  }
   return done();
 }
 

@@ -1,98 +1,78 @@
+/* Hallmark · shape: Index-First sheet, kept order · genre: editorial · theme: vintage (by request), from Darkroom (deal 1/3, seed wedding-baptism-event-photographer-1cf0·3dbb5f61·2026-11-04·r0) · redesign: full · copy: verbatim
+ * hero: Poster · nav: edge-aligned, wordmark, three links and one action · footer: a hairline and one line · imagery: the client's own colour photographs · signature: the poster head over the couple in the garden · vintage: aged cream, prints on a mat
+ * axes: light/serif/warm-oxblood · posture: restrained · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V3 · weakest: V, photographs stay in colour (the theme prints mono), reason: the client's palms and greens are the work */
+/* Hallmark · waive 83 · the hero, the gallery and the videos lead with the client's own photographs · a photographer's page is the portfolio, and text sections sit between them */
+/* Hallmark · waive 65 · ivory paper, Cormorant and an oxblood accent are the soft vintage look the client asked for by name, with the palette from their Pinterest reference · the palette is taken from the client's own reference */
 @import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css" layer(base);
 
-:root {
-  --canvas: #fbfbfa;
-  --surface: #ffffff;
-  --ink: #111111;
-  --muted: #787774;
-  --line: #eaeaea;
-  --bone: #f7f6f3;
-}
-
+/* names the gallery, form and admin components already use, pointed at the Darkroom tokens */
 @theme inline {
-  --color-canvas: var(--canvas);
-  --color-surface: var(--surface);
-  --color-ink: var(--ink);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-bone: var(--bone);
-  --font-sans: var(--font-geist-sans);
-  --font-serif: var(--font-newsreader);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--color-paper);
+  --color-surface: var(--color-paper-2);
+  --color-bone: var(--color-paper-3);
+  --color-line: var(--color-rule);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
+  --font-mono: var(--font-body);
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 7rem; /* two-row header on phones */
-}
-@media (min-width: 768px) {
-  html { scroll-padding-top: 5rem; }
-}
-
-body {
-  background: var(--canvas);
-  color: var(--ink);
-  font-family: var(--font-sans), "Helvetica Neue", sans-serif;
-  line-height: 1.6;
-}
+h3 { font-weight: 600; }
 
 .serif {
-  font-family: var(--font-serif), Georgia, serif;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--tracking-display);
   line-height: 1.1;
 }
 
 .card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  transition: box-shadow 200ms;
-}
-.card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
 }
 
+/* a small label: body face, sentence case, untracked */
 .tag {
   display: inline-block;
-  border-radius: 9999px;
-  padding: 2px 10px;
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  background: #fbf3db;
-  color: #956400;
+  font-size: var(--text-md);
+  color: var(--color-muted);
 }
 
-.btn {
-  display: inline-block;
-  background: var(--ink);
-  color: #fff;
-  border-radius: 6px;
-  padding: 12px 22px;
-  font-size: 0.9rem;
-  transition: background 200ms, transform 200ms;
+.btn, .btn-line {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 var(--space-lg);
+  border: var(--rule-hair) solid var(--color-accent);
+  border-radius: var(--radius-field);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font: 600 var(--text-lg)/1 var(--font-display);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
 }
-.btn:hover { background: #333; }
-.btn:active { transform: scale(0.98); }
+.btn:hover { background: var(--color-accent-deep); border-color: var(--color-accent-deep); }
+.btn:active, .btn-line:active { transform: scale(0.98); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-line { background: transparent; border-color: var(--color-ink); color: var(--color-ink); }
+.btn-line:hover { background: var(--color-ink); color: var(--color-paper); }
 
-/* scroll entry: Reveal toggles data-in */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: calc(var(--i, 0) * 80ms);
-}
-[data-reveal][data-in] {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1; transform: none; transition: none; }
-  html { scroll-behavior: auto; }
-}
 
-/* lightbox: light editorial overlay, photo framed like a print */
+/* team photos: cut-up newsprint mat, tilted */
+.print-news { padding: var(--space-md); background: var(--texture-newsprint) var(--color-newsprint); border-radius: 0; box-shadow: none; transform: rotate(-1.2deg);
+  /* hand-cut edge; the clip would drop a shadow anyway */
+  clip-path: polygon(0 3%, 6% 0, 31% 2%, 58% 0, 83% 1%, 100% 0, 99% 24%, 100% 52%, 98% 79%, 100% 100%, 72% 98%, 45% 100%, 20% 99%, 0 100%, 1% 74%, 0 46%, 2% 21%); }
+.print-news:nth-of-type(even) { transform: rotate(1deg); }
+header { border-bottom: 3px double var(--color-rule) !important; }
+
+/* lightbox: the photo framed like a print on the paper ground */
 .lightbox {
   position: fixed;
   inset: 0;
@@ -103,10 +83,10 @@ body {
   margin: 0;
   padding: 0;
   border: 0;
-  background: var(--canvas); /* solid: the page behind only showed as blurry shapes */
-  color: var(--ink);
+  background: var(--color-paper);
+  color: var(--color-ink);
 }
-.lightbox[open] { animation: lb-in 300ms cubic-bezier(0.16, 1, 0.3, 1); }
+.lightbox[open] { animation: lb-in var(--dur-long) var(--ease-out); }
 .lightbox::backdrop { background: transparent; }
 @keyframes lb-in { from { opacity: 0; } }
 .lb-stage { position: relative; height: 100%; container-type: size; }
@@ -122,45 +102,60 @@ body {
 }
 .lb-photo {
   object-fit: contain;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  animation: lb-photo 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-photo);
+  animation: lb-photo var(--dur-long) var(--ease-out);
 }
 @keyframes lb-photo { from { opacity: 0; transform: translateY(12px); } }
 .lb-btn {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  color: var(--ink);
-  transition: background 200ms, transform 200ms;
+  width: 44px;
+  height: 44px;
+  background: var(--color-paper-2);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink);
+  cursor: pointer;
+  transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out);
 }
-.lb-btn:hover { background: var(--bone); }
+.lb-btn:hover { background: var(--color-paper-3); }
 .lb-btn:active { transform: scale(0.96); }
-body:has(dialog[open]) { overflow: hidden; }
+body:has(dialog[open]) { overflow: clip; }
 @media (prefers-reduced-motion: reduce) {
   .lightbox[open], .lb-photo { animation: none; }
 }
 
 /* admin: staggered entry, key-style index badge, upload progress bar */
-.rise { animation: rise 600ms cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(var(--i, 0) * 40ms); }
+.rise { animation: rise var(--dur-long) var(--ease-out) both; animation-delay: calc(var(--i, 0) * 40ms); }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
 .kbd {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--font-body);
   font-size: 11px;
   line-height: 1;
-  padding: 4px 6px;
-  background: var(--bone);
-  border: 1px solid var(--line);
+  padding: var(--space-2xs) var(--space-xs);
+  background: var(--color-paper-3);
+  border: var(--rule-hair) solid var(--color-rule);
   border-radius: 4px;
 }
-.bar { height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; }
-.bar > i { display: block; height: 100%; background: var(--ink); transform-origin: left; transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1); }
+.bar { height: 4px; background: var(--color-rule); overflow: hidden; }
+.bar > i { display: block; height: 100%; background: var(--color-ink); transform-origin: left; transition: transform var(--dur-long) var(--ease-out); }
 @media (prefers-reduced-motion: reduce) {
   .rise { animation: none; }
   .bar > i { transition: none; }
 }
+
+/* two-row header on phones */
+@media (max-width: 767px) { html { scroll-padding-top: 7rem; } }
+
+@media (max-width: 40rem) { .btn, .btn-line { padding: 0 var(--space-md); font-size: var(--text-md); } }
+
+/* form fields: a 1px muted edge so they read against the card (3:1) */
+.card :is(input, textarea) { border-color: var(--color-muted); border-radius: var(--radius-field); background: var(--color-paper); }
+
+
+
+
+
+

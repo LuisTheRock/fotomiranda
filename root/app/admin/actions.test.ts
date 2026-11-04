@@ -37,6 +37,19 @@ describe("admin actions", () => {
     expect(from).not.toHaveBeenCalled();
   });
 
+  it("still succeeds when the files cannot be removed from storage, and logs it", async () => {
+    const id = "11111111-1111-1111-1111-111111111111";
+    const remove = vi.fn().mockResolvedValue({ error: { message: "boom" } });
+    const log = vi.spyOn(console, "error").mockImplementation(() => {});
+    requireUser.mockResolvedValue({
+      from: () => ({ select: () => ({ in: async () => ({ data: [{ path: "a.jpg" }] }) }), delete: () => ({ in: async () => ({ error: null }) }) }),
+      storage: { from: () => ({ remove }) },
+    });
+    expect(await deletePhotos([id])).toEqual({});
+    expect(remove).toHaveBeenCalledWith(["a.jpg"]);
+    expect(log).toHaveBeenCalled();
+  });
+
   it("appends a valid photo after the last position", async () => {
     const insert = vi.fn().mockResolvedValue({ error: null });
     from.mockReturnValueOnce({ select: () => ({ order: () => ({ limit: async () => ({ data: [{ position: 4 }] }) }) }) }).mockReturnValueOnce({ insert });

@@ -14,7 +14,7 @@ Website for a wedding, baptism and event photographer in Santa Maria da Feira (P
 
 - `app/[lang]/` — the only page, in `pt` (default) and `en`. All copy is in `app/[lang]/dictionaries.ts`; `en` is typed against `pt`, so a missing key fails the type-check.
 - `app/api/contact/route.ts` — contact form: validation, Turnstile check, then Resend.
-- `components/` — `Gallery` (filters, paging, `<dialog>` lightbox), `VideoEmbed` (click-to-load YouTube), `ContactForm`, `Reveal` (scroll fade-in).
+- `components/` — `Gallery` (filters, paging, `<dialog>` lightbox), `VideoEmbed` (click-to-load YouTube), `ContactForm`.
 - `lib/site.ts` — phones, email, address, social links, site URL. `lib/photos.ts` — reads the gallery from Supabase (cached, tag `photos`).
 - `app/admin/` — login + gallery manager (upload, drag to reorder, category, delete). Supabase Auth, sign-ups off; every action calls `requireUser()`.
 - `proxy.ts` — redirects `/` to `/pt` or `/en` by browser language (Next 16 name for middleware).
@@ -22,12 +22,13 @@ Website for a wedding, baptism and event photographer in Santa Maria da Feira (P
 
 ## Design rules
 
-The look follows the `minimalist-ui` skill. Load it before changing any UI.
+The look is a custom vintage theme (derived from Hallmark's Darkroom): ivory paper, photographs as prints on a white mat, light only, no dark mode. Tokens live in `app/tokens.css`, base rules in `app/base.css`, shared controls in `app/globals.css`.
 
-- Warm off-white canvas, `#111` text, `#787774` muted text, borders `1px solid #EAEAEA`.
-- Newsreader for headings, Geist for body, Geist Mono for small labels. No Inter, Roboto or Open Sans.
-- Radius 12px on cards, 8px on photos, 6px on buttons. Pills only for small tags.
-- No gradients, no heavy shadows, no emojis, no icon libraries. Icons are inline Phosphor SVG paths.
+- Ivory paper ground, charcoal-brown ink, taupe rules, olive-green bands (`--color-olive`, cream text), one oxblood accent (ivory and olive palette from the client's Pinterest reference) (`--color-accent`) for the primary button, hover and focus only.
+- Cormorant Garamond for headings and buttons (500/600), Lora for everything read. Dancing Script (the logo's script) only on the hero headline. Fonts load in `lib/fonts.ts`. No mono.
+- Labels, captions and tags: body face, sentence case, untracked. Never uppercase-tracked labels.
+- Soft corners (`--radius-*` tokens: 10px cards, 6px photos and buttons). Tan hairlines between rows, a double rule under the header. Shadow only on `.print`. No gradients, no emojis, no icon libraries (inline Phosphor SVG paths).
+- Photographs stay in colour; never tinted. Colours and fonts only through tokens, never literals.
 - Motion only via `transform` and `opacity`, and always switched off for `prefers-reduced-motion`.
 - Decisions already made: no shadcn, no dark mode.
 - Copy is European Portuguese (not Brazilian). Keep the plain, specific tone of the existing text.

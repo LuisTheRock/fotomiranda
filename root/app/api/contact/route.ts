@@ -13,14 +13,17 @@ export async function POST(request: Request) {
     return Response.json({ error: "too long" }, { status: 400 });
   }
 
-  // Turnstile token proves a real browser filled the form; the honeypot alone does not stop bots posting straight to this URL.
-  if (!process.env.TURNSTILE_SECRET_KEY) {
-    console.error("contact: TURNSTILE_SECRET_KEY is not set");
+  // Fail before the captcha call, so a bad deploy shows up in the logs instead of as a lost message.
+  const missing = ["TURNSTILE_SECRET_KEY", "RESEND_API_KEY", "CONTACT_TO"].filter((k) => !process.env[k]);
+  if (missing.length) {
+    console.error("contact: not set in the environment:", missing.join(", "));
     return Response.json({ error: "server misconfigured" }, { status: 500 });
   }
+
+  // Turnstile token proves a real browser filled the form; the honeypot alone does not stop bots posting straight to this URL.
   const check = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
-    body: new URLSearchParams({ secret: process.env.TURNSTILE_SECRET_KEY, response: typeof token === "string" ? token : "" }),
+    body: new URLSearchParams({ secret: process.env.TURNSTILE_SECRET_KEY!, response: typeof token === "string" ? token : "" }),
     signal: AbortSignal.timeout(5000), // a hung call becomes the .catch below instead of a stuck form
   }).then((r) => r.json()).catch(() => null);
   if (!check?.success) {

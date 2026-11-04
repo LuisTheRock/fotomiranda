@@ -59,6 +59,13 @@ describe("POST /api/contact", () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
+  it("fails closed when the email settings are missing, before any call", async () => {
+    vi.stubEnv("RESEND_API_KEY", "");
+    const fetchMock = mockFetch();
+    expect((await post(valid)).status).toBe(500);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
   it("returns 403 and sends no email when the captcha fails", async () => {
     const fetchMock = mockFetch({ captcha: false });
     expect((await post(valid)).status).toBe(403);

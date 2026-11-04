@@ -42,8 +42,8 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
               setFilter(key);
               setVisible(PAGE);
             }}
-            className={`rounded-md border px-3 py-1.5 text-sm transition-colors ${
-              filter === key ? "border-ink bg-ink text-white" : "border-line bg-surface text-muted hover:text-ink"
+            className={`min-h-11 rounded-full border px-4 text-sm transition-colors ${
+              filter === key ? "border-ink bg-ink text-paper" : "border-line text-muted hover:text-ink"
             }`}
           >
             {label}
@@ -56,16 +56,15 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
           <li key={p.src} className="mb-3 break-inside-avoid">
             <button
               onClick={() => show(i)}
-              className="card block w-full overflow-hidden"
-              style={{ borderRadius: 8 }}
-            >
+              className="block w-full overflow-hidden rounded-[var(--radius-photo-lg)]"
+                          >
               <Image
                 src={p.src}
                 alt={p.alt}
                 width={800}
                 height={533}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="h-auto w-full"
+                className="h-auto w-full rounded-sm"
                 placeholder="blur"
                 blurDataURL={p.blur}
               />
@@ -76,10 +75,10 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
 
       {visible < shown.length && (
         <div className="mt-10 flex flex-col items-center gap-3">
-          <span className="font-mono text-xs text-muted">
+          <span className="text-sm text-muted tabular-nums">
             {String(visible).padStart(2, "0")} / {String(shown.length).padStart(2, "0")}
           </span>
-          <button onClick={() => setVisible((v) => v + PAGE)} className="rounded-md border border-line bg-surface px-5 py-3 text-sm transition-colors hover:bg-bone active:scale-[0.98]">
+          <button onClick={() => setVisible((v) => v + PAGE)} className="btn-line">
             {t.more}
           </button>
         </div>
@@ -105,7 +104,7 @@ export default function Gallery({ photos, t }: { photos: Photo[]; t: Dictionary[
               if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
             }}
           >
-            <div className="flex items-center justify-between px-6 py-5 font-mono text-xs text-muted">
+            <div className="flex items-center justify-between px-6 py-5 text-sm text-muted tabular-nums">
               <span>
                 {String((open ?? 0) + 1).padStart(2, "0")} / {String(shown.length).padStart(2, "0")}
               </span>
