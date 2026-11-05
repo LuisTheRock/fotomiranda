@@ -24,7 +24,7 @@ Website for a wedding, baptism and event photographer in Santa Maria da Feira (P
 
 The look is a custom vintage theme (derived from Hallmark's Darkroom): ivory paper, photographs as prints on a white mat, light only, no dark mode. Tokens live in `app/tokens.css`, base rules in `app/base.css`, shared controls in `app/globals.css`.
 
-- Ivory paper ground, charcoal-brown ink, taupe rules, olive-green bands (`--color-olive`, cream text), one oxblood accent (ivory and olive palette from the client's Pinterest reference) (`--color-accent`) for the primary button, hover and focus only.
+- Ivory paper ground, charcoal-brown ink, taupe rules, dark charcoal bands (`--color-olive`, cream text; the name is a leftover), one oxblood accent (ivory and olive palette from the client's Pinterest reference) (`--color-accent`) for the primary button, hover and focus only.
 - Cormorant Garamond for headings and buttons (500/600), Lora for everything read. Dancing Script (the logo's script) only on the hero headline. Fonts load in `lib/fonts.ts`. No mono.
 - Labels, captions and tags: body face, sentence case, untracked. Never uppercase-tracked labels.
 - Soft corners (`--radius-*` tokens: 10px cards, 6px photos and buttons). Tan hairlines between rows, a double rule under the header. Shadow only on `.print`. No gradients, no emojis, no icon libraries (inline Phosphor SVG paths).

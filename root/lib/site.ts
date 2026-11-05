@@ -8,3 +8,5 @@ export const MAP =
   "https://www.google.com/maps/place/Foto+Miranda/@41.0003933,-8.5686738,17z/data=!3m1!4b1!4m6!3m5!1s0xd247f299420e65b:0x3d54939e19dca278!8m2!3d41.0003893!4d-8.5660989!16s%2Fg%2F11f52hy2rr";
 export const INSTAGRAM = "https://www.instagram.com/foto.miranda/";
 export const FACEBOOK = "https://www.facebook.com/Mirandacomarte";
+// Next event shown in the hero countdown (ISO, Lisbon time). Placeholder: set the real date; the card hides once it passes.
+export const NEXT_EVENT = "2026-12-12T15:00:00+00:00";

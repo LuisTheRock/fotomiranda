@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ContactForm from "@/components/ContactForm";
+import Countdown from "@/components/Countdown";
+import HeroInert from "@/components/HeroInert";
 import Gallery from "@/components/Gallery";
 import VideoEmbed from "@/components/VideoEmbed";
 import { getPhotos } from "@/lib/photos";
-import { ADDRESS, EMAIL, FACEBOOK, GEO, INSTAGRAM, MAP, PHONES, SITE_URL } from "@/lib/site";
+import { ADDRESS, EMAIL, FACEBOOK, GEO, INSTAGRAM, MAP, NEXT_EVENT, PHONES, SITE_URL } from "@/lib/site";
 import { getDictionary, hasLocale } from "./dictionaries";
 
 const VIDEOS = [
@@ -80,24 +82,24 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
       </header>
 
       <main>
-        {/* Hero: the poster head beside the couple */}
-        <section className={`${wrap} pt-[var(--space-2xl)] md:pt-[var(--space-3xl)]`}>
-          <div className={`${grid} items-center`}>
-            <div className="col-span-12 lg:col-span-7">
-              <h1 className="max-w-none font-script text-display font-semibold leading-[1.1]">{t.hero.title}</h1>
-              <p className="lead mt-8 text-ink-2">{t.hero.body}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a href="#contacto" className="btn">{t.hero.cta}</a>
-                <a href="#galeria" className="btn-line">{t.hero.secondary}</a>
-              </div>
+        {/* Hero: full-bleed photograph with a glass card counting down to the next event */}
+        <section id="hero" className="[@media(min-height:700px)]:sticky top-16 flex min-h-[calc(100svh-4rem)] items-end justify-center overflow-hidden px-[var(--gutter)] py-[var(--space-2xl)]">
+          <div className="absolute inset-0">
+            <Image src="/hero/lamp.jpg" alt="" fill sizes="100vw" className="object-cover object-[50%_30%]" priority />
+          </div>
+          <div className="relative flex w-full flex-col items-center gap-8 text-center">
+            <h1 className="max-w-none font-script text-display font-semibold leading-[1.1] text-white">{t.hero.title}</h1>
+            <Countdown to={NEXT_EVENT} t={t.hero.countdown} />
+            <div className="flex flex-wrap justify-center gap-3">
+              <a href="#contacto" className="btn">{t.hero.cta}</a>
+              <a href="#galeria" className="btn">{t.hero.secondary}</a>
             </div>
-            <figure className="col-span-12 lg:col-span-5">
-              <Image src="/hero/1.jpg" alt={t.hero.alt} width={1772} height={1181} sizes="(min-width:1024px) 42vw, 100vw" className="rounded-[var(--radius-photo-lg)] aspect-[4/5] w-full object-cover" priority />
-              <figcaption className="mt-3 text-sm text-muted">{t.hero.eyebrow}</figcaption>
-            </figure>
           </div>
         </section>
 
+        {/* Everything below scrolls over the pinned hero */}
+        <div id="cover" className="relative z-10 bg-paper">
+        <HeroInert />
         {/* Services: a sheet of rows under hairlines */}
         <section id="servicos" className={band}>
           <h2>{t.services.title}</h2>
@@ -220,10 +222,11 @@ export default async function Page({ params }: PageProps<"/[lang]">) {
             </div>
           </div>
         </section>
+        </div>
       </main>
 
       <footer className="border-t border-rule">
-        <div className={`${wrap} py-[var(--space-xl)] text-sm text-muted`}>© FotoMiranda. {t.footer.rights}</div>
+        <div className={`${wrap} py-[var(--space-xl)] text-center text-sm text-muted`}>© FotoMiranda. {t.footer.rights}</div>
       </footer>
     </>
   );

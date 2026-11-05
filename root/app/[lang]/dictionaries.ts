@@ -6,12 +6,10 @@ const pt = {
   },
   nav: { gallery: "Galeria", services: "Serviços", team: "Equipa", contact: "Contacto", cta: "Contacte-nos" },
   hero: {
-    eyebrow: "Casamentos, batizados e eventos",
     title: "Capture os seus momentos",
-    body: "Permitam que a vossa história seja contada com simplicidade e emoção, resultando em imagens transparentes e inesquecíveis.",
-    alt: "Casal de noivos a abraçar-se num jardim",
     cta: "Pedir orçamento",
     secondary: "Ver galeria",
+    countdown: { title: "O nosso próximo evento é daqui a", days: "dias", hours: "horas", minutes: "minutos" },
   },
   services: {
     title: "O que fazemos",
@@ -85,12 +83,10 @@ const en: typeof pt = {
   },
   nav: { gallery: "Gallery", services: "Services", team: "Team", contact: "Contact", cta: "Contact us" },
   hero: {
-    eyebrow: "Weddings, baptisms and events",
     title: "Capture your moments",
-    body: "Let your story be told with simplicity and emotion, in clear images you will not forget.",
-    alt: "Newlyweds embracing in a garden",
     cta: "Request a quote",
     secondary: "View gallery",
+    countdown: { title: "Our next event is in", days: "days", hours: "hours", minutes: "minutes" },
   },
   services: {
     title: "What we do",

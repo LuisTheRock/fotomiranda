@@ -13,10 +13,10 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
   const { meta } = getDictionary(lang);
   return {
     metadataBase: new URL(SITE_URL),
-    title: meta.title,
+    title: "FotoMiranda",
     description: meta.description,
     alternates: { canonical: `/${lang}`, languages: { pt: "/pt", en: "/en" } },
-    openGraph: { title: meta.title, description: meta.description, images: ["/hero/1.jpg"], locale: lang },
+    openGraph: { title: meta.title, description: meta.description, images: ["/og.jpg"], locale: lang },
   };
 }
 
@@ -25,7 +25,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
   if (!hasLocale(lang)) notFound();
 
   return (
-    <html lang={lang} className={`${fontClasses} antialiased`}>
+    <html lang={lang} className={`${fontClasses} antialiased keep-motion`}>
       <body>{children}</body>
     </html>
   );

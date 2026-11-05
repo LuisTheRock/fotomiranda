@@ -6,7 +6,6 @@
   --text-xl: 1.5625rem;
   --text-2xl: 1.953rem;
   --text-3xl: 2.441rem;
-  --text-poster: clamp(4rem, 8.5vw, 8.5rem);
   --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem);
   --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
   --text-section: clamp(2.5rem, 3.5vw + 1rem, 4.5rem);
@@ -17,7 +16,7 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --color-error: oklch(48% 0.18 27);
   --color-success: oklch(42% 0.12 150);
-  /* Soft romance: ivory paper, charcoal-brown ink, taupe rules, olive-green bands, one oxblood accent */
+  /* Soft romance: ivory paper, charcoal-brown ink, taupe rules, charcoal bands, one oxblood accent */
   --color-paper: oklch(97% 0.008 80);
   --color-paper-2: oklch(94% 0.012 85);
   --color-paper-3: oklch(90% 0.014 75);
@@ -25,7 +24,7 @@
   --color-ink-2: oklch(40% 0.012 60);
   --color-muted: oklch(50% 0.012 65);
   --color-rule: oklch(86% 0.014 75);
-  --color-olive: oklch(50% 0.04 120);
+  --color-olive: oklch(24% 0.012 60); /* name kept: now the dark charcoal band, matching the hero */
   --color-olive-ink: oklch(95% 0.012 85);
   --color-mat: oklch(99% 0.004 80);
   --color-newsprint: oklch(91% 0.02 90);
